@@ -3,47 +3,128 @@
 <head>
     <title>NBA Visualizations</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        /* Reset some default styles */
+        body, h1, h2, p {
             margin: 0;
             padding: 0;
         }
+
+        /* Basic styling for header */
         header {
-            background-color: #333;
+            background-color: #3498db;
+            font-family: Georgia, Helvetica, sans-serif;
             color: #fff;
-            text-align: center;
             padding: 10px;
+            text-align: center;
         }
+
         h1 {
-            margin: 0;
-            font-size: 24px;
+            font-size: 28px;
         }
+
         h2 {
-            margin-top: 0;
-            font-size: 20px;
+            font-size: 18px;
+            margin-top: 10px;
         }
+
+        /* Styling for main content container */
         .container {
+            margin: 20px auto;
             max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .tableauPlaceholder {
-            position: relative;
-            width: 100%;
-            text-align: center;
-        }
-        .tableauViz {
-            display: block;
-            margin: 0 auto;
-        }
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
             padding: 10px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+        }
+
+        /* Styling for 3-column layout */
+        .columns {
+            display: flex;
+            flex-wrap: wrap; /* Allow columns to wrap to next line */
+            justify-content: space-between;
+            align-items: stretch; /* Stretch columns to match height */
+            margin-bottom: 20px;
+        }
+
+        .column {
+            flex: 0 0 calc(30% - 20px); /* Adjust width and add margin */
+            margin: 10px; /* Add margin between columns */
+            padding: 10px;
+            background-color: #f1f1f1;
+        }
+
+        /* Align text within columns to the left */
+        .column h3, .column p, .column ul {
+            text-align: left;
+        }
+
+        /* Styling for Tableau visualization */
+        .tableauPlaceholder {
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .tableauViz {
+            display: inline-block;
+        }
+
+        /* Styling for footer */
+        footer {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* Additional styles for responsiveness */
+        @media only screen and (max-width: 800px) {
+            .tableauViz {
+                width: 100%;
+                height: auto;
+            }
+
+            .columns {
+                flex-direction: column;
+            }
+
+            .column {
+                flex-basis: 100%;
+                margin-bottom: 10px;
+            }
+        }
+
+        /* Add space between paragraphs */
+        .column.data p {
+            margin-bottom: 10px;
+        }
+
+        /* Hide the second Tableau dashboard by default */
+        /* Styling for the second Tableau visualization */
+        .tableauPlaceholder2 {
+            display: none;
+            margin: 20px auto;
+            text-align: center;
+            width: 100%; /* Set the width to 100% */
+            overflow-x: auto; /* Add horizontal scroll if needed */
+        }
+
+        .tableauPlaceholder2 .tableauViz {
+            display: inline-block;
+            width: 100%; /* Set the width to 100% */
+            max-width: none; /* Remove the max-width */
+            position: static; /* Remove the relative positioning */
+        }
+
+        /* Styling for the toggle button */
+        #toggleButtonContainer {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        #toggleButton {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -53,46 +134,54 @@
         <h2>Authors: David Sherman, Savinay Chandrupatla, Daniel Myers, Arwin Rahmatpanah</h2>
     </header>
     <div class="container">
-        <div class='tableauPlaceholder' id='viz1690913983327'>
-            <noscript>
-                <a href='#'>
-                    <img alt='Main Dashboard' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;GX&#47;GXR5QFZ6D&#47;1_rss.png' style='border: none' />
-                </a>
-            </noscript>
-            <object class='tableauViz' style='display:none;'>
-                <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
-                <param name='embed_code_version' value='3' />
-                <param name='path' value='shared&#47;GXR5QFZ6D' />
-                <param name='toolbar' value='yes' />
-                <param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;GX&#47;GXR5QFZ6D&#47;1.png' />
-                <param name='animate_transition' value='yes' />
-                <param name='display_static_image' value='yes' />
-                <param name='display_spinner' value='yes' />
-                <param name='display_overlay' value='yes' />
-                <param name='display_count' value='yes' />
-                <param name='language' value='en-US' />
-            </object>
+        <div class="columns">
+            <div class="column">
+                <h3>Goal</h3>
+                <p>The goal of this project is to create a detailed visualization that displays NBA players’ performance statistics based off shot location, defender, time of season, and more.</p>
+                <p>&nbsp;</p>
+                <p><strong>Toggle between our dashboards:</strong></p>
+                <p>(1) Shot Chart</p>
+                <p>(2) General Player Statistics</p>
+            </div>
+            <div class="column">
+                <h3>Insights</h3>
+                <p><strong>Shot Selection:</strong> Understand the shot selection of individual players.</p>
+                <p><strong>Shooting Percentage:</strong> Explore how the shooting efficiency of individual players changes based on various factors.</p>
+                <p><strong>Defensive Strategy:</strong> Find out which teams employed effective defensive strategies.</p>
+            </div>
+            <div class="column data">
+                <h3>Data</h3>
+                <p>This data is gathered using an API client for <a href="https://www.nba.com/" target="_blank">www.nba.com</a>. The API client can be found here: <a href="https://github.com/swar/nba_api" target="_blank">https://github.com/swar/nba_api</a>.</p>
+                <p>The code for this project can be found in this Github repository: <a href="https://github.com/Savinay09/NBAShotChart" target="_blank">https://github.com/Savinay09/NBAShotChart</a>.</p>
+            </div>
         </div>
+        <div id="toggleButtonContainer">
+            <!-- Add a button to toggle between dashboards -->
+            <button id="toggleButton" onclick="toggleDashboards()">Toggle Dashboards</button>
+        </div>
+        <div class='tableauPlaceholder' id='viz1691358496623' style='position: relative'><noscript><a href='#'><img alt='Player Dashboard ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;NB&#47;NBAShotChartTableau&#47;PlayerDashboard&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='NBAShotChartTableau&#47;PlayerDashboard' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;NB&#47;NBAShotChartTableau&#47;PlayerDashboard&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1691358496623');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.width='1100px';vizElement.style.height='927px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='1100px';vizElement.style.height='927px';} else { vizElement.style.width='100%';vizElement.style.height='2927px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+        <div class='tableauPlaceholder' id='viz1691285942006' style='position: relative' display: none><noscript><a href='#'><img alt='NBA Stats Across Seasons ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;NB&#47;NBAStatsAcrossSeasons&#47;NBAStatsAcrossSeasons&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='NBAStatsAcrossSeasons&#47;NBAStatsAcrossSeasons' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;NB&#47;NBAStatsAcrossSeasons&#47;NBAStatsAcrossSeasons&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1691285942006');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.width='1000px';vizElement.style.height='827px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='1000px';vizElement.style.height='827px';} else { vizElement.style.width='100%';vizElement.style.height='2177px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
     </div>
     <footer>
-        <p>Final Project for W209 @ UC Berkeley MIDS</p>
+        <p>&copy; 2023 NBA Visualizations. All rights reserved.</p>
     </footer>
     <script type='text/javascript'>
-        var divElement = document.getElementById('viz1690913983327');
-        var vizElement = divElement.getElementsByTagName('object')[0];
-        if (divElement.offsetWidth > 800) {
-            vizElement.style.width = '1100px';
-            vizElement.style.height = '827px';
-        } else if (divElement.offsetWidth > 500) {
-            vizElement.style.width = '1100px';
-            vizElement.style.height = '827px';
-        } else {
-            vizElement.style.width = '100%';
-            vizElement.style.height = '1227px';
+        // JavaScript function to toggle between dashboards
+        function toggleDashboards() {
+            var viz1 = document.getElementById('viz1691358496623');
+            var viz2 = document.getElementById('viz1691285942006');
+            var button = document.getElementById('toggleButton');
+
+            if (viz1.style.display === 'none') {
+                viz1.style.display = 'block';
+                viz2.style.display = 'none';
+                button.textContent = 'Toggle Dashboards';
+            } else {
+                viz1.style.display = 'none';
+                viz2.style.display = 'block';
+                button.textContent = 'Toggle Dashboards';
+            }
         }
-        var scriptElement = document.createElement('script');
-        scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
-        vizElement.parentNode.insertBefore(scriptElement, vizElement);
     </script>
 </body>
 </html>
